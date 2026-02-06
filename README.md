@@ -1,2 +1,3 @@
-# new-mount-carmel-baptist-church-app
-Exported from Caffeine project: New Mount Carmel Baptist Church App
+## New Mount Carmel Baptist Church App
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

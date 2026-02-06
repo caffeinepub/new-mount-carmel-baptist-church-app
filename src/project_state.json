@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Church app for New Mount Carmel Baptist Church featuring embedded YouTube and Facebook livestream pages (with separate audio input support), Internet Identity member login, and Clover POS integration placeholder. Chat/RTSP/Gmail login are out of scope.",
+  "architectural_notes": [
+    "Livestreaming will be via embedding external providers (YouTube/Facebook), not hosting RTSP streams.",
+    "Authentication will use Internet Identity (not Gmail OAuth).",
+    "Clover integration will be implemented as a placeholder/prep (details TBD)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Church logo mark with simple cross + rising sun motif, warm neutral palette (nmcbc-logo.dim_512x512.png)\n- Wide subtle background banner with abstract stained-glass shapes, warm neutrals and greens (nmcbc-banner.dim_1600x600.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-the-core-app-shell-and-navigation-for-a-church-livestream-app-for-new-mount-carmel-baptist-church-with-clear-routes-sections-for-1-watch-live-youtube-2-watch-live-facebook-3-audio-input-4-member-area-requires-login-and-5-clover-placeholder",
+      "title": "Create the core app shell and navigation for a church livestream app for New Mount Carmel Baptist Church with clear routes/sections for: (1) Watch Live (YouTube), (2) Watch Live (Facebook), (3) Audio Input, (4) Member Area (requires login), and (5) Clover (Placeholder).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-youtube-livestream-page-that-allows-an-admin-member-to-paste-and-save-youtube-embed-code-or-a-youtube-video-live-url-and-then-renders-the-embedded-livestream-responsively-desktop-mobile",
+      "title": "Implement a YouTube livestream page that allows an admin/member to paste and save YouTube embed code or a YouTube video/live URL, and then renders the embedded livestream responsively (desktop + mobile).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-facebook-livestream-page-that-allows-an-admin-member-to-paste-and-save-facebook-embed-code-or-a-facebook-live-url-and-then-renders-the-embedded-livestream-responsively-desktop-mobile",
+      "title": "Implement a Facebook livestream page that allows an admin/member to paste and save Facebook embed code or a Facebook live URL, and then renders the embedded livestream responsively (desktop + mobile).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-audio-input-feature-that-lets-a-logged-in-member-select-an-available-audio-input-device-microphone-line-in-as-exposed-by-the-browser-start-stop-monitoring-and-control-playback-volume-while-watching-the-embedded-livestreams-in-another-tab-section",
+      "title": "Add an “Audio Input” feature that lets a logged-in member select an available audio input device (microphone/line-in as exposed by the browser), start/stop monitoring, and control playback volume while watching the embedded livestreams in another tab/section.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-member-authentication-using-internet-identity-and-gate-the-member-area-so-only-authenticated-users-can-access-it-unauthenticated-users-should-see-a-clear-prompt-to-sign-in",
+      "title": "Implement member authentication using Internet Identity and gate the Member Area so only authenticated users can access it; unauthenticated users should see a clear prompt to sign in.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-clover-integration-placeholder-page-that-clearly-communicates-clover-integration-is-not-yet-active-and-includes-a-safe-configuration-form-for-future-use-e-g-merchantid-apibaseurl-environment-stored-locally-in-the-browser-no-secrets",
+      "title": "Add a “Clover Integration (Placeholder)” page that clearly communicates Clover integration is not yet active, and includes a safe configuration form for future use (e.g., merchantId, apiBaseUrl, environment) stored locally in the browser (no secrets).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-coherent-distinctive-visual-theme-for-the-app-and-apply-it-consistently-across-pages-typography-spacing-colors-and-component-styling-avoid-a-blue-purple-dominant-palette",
+      "title": "Provide a coherent, distinctive visual theme for the app and apply it consistently across pages (typography, spacing, colors, and component styling). Avoid a blue/purple-dominant palette.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-generated-static-images-to-the-project-and-use-them-in-the-ui-e-g-header-landing-areas-by-serving-from-frontend-public-assets-generated-no-backend-image-serving",
+      "title": "Add the required generated static images to the project and use them in the UI (e.g., header/landing areas) by serving from frontend/public/assets/generated (no backend image serving).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Livestream page with embedded YouTube and Facebook live video (embed code)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Support separate audio input for livestream experience (external audio source alongside embeds)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Member authentication via Internet Identity login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Clover POS integration placeholder/prep for later integration",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add a minimal backend member profile record keyed by Principal (e.g., createdAt, displayName optional) and expose canister methods for: getMyProfile (returns optional profile) and upsertMyProfile (creates/updates).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    }
+  ],
+  "projectName": "New Mount Carmel Baptist Church App",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

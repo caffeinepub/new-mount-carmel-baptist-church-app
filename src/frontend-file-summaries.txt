@@ -1,0 +1,18 @@
+{
+  "frontend/src/App.tsx": "Root application component that sets up TanStack Router with routes for YouTube, Facebook, Audio Input, Member Area, and Clover pages, all wrapped in AppLayout.",
+  "frontend/src/components/AppLayout.tsx": "Main layout component with header (banner image, logo, church name, auth button), primary navigation, main content area, and footer with attribution.",
+  "frontend/src/components/PrimaryNav.tsx": "Horizontal navigation bar with icon-labeled buttons for all main sections (YouTube, Facebook, Audio, Member, Giving), highlighting the active route.",
+  "frontend/src/components/AuthButton.tsx": "Sign in/out button using Internet Identity with loading states and query cache clearing on logout.",
+  "frontend/src/components/RequireAuth.tsx": "Authentication guard component that shows a sign-in prompt for unauthenticated users or renders protected children for authenticated users.",
+  "frontend/src/pages/WatchLiveYouTubePage.tsx": "YouTube livestream page with embed viewer and authenticated edit mode for pasting/saving YouTube URLs or embed codes.",
+  "frontend/src/pages/WatchLiveFacebookPage.tsx": "Facebook livestream page with embed viewer and authenticated edit mode for pasting/saving Facebook URLs or embed codes.",
+  "frontend/src/pages/AudioInputPage.tsx": "Audio input monitoring page (auth-required) with device selection, start/stop controls, and volume slider using Web Audio API.",
+  "frontend/src/pages/MemberAreaPage.tsx": "Member profile management page (auth-required) with display name editing and profile setup flow for first-time users.",
+  "frontend/src/pages/CloverPlaceholderPage.tsx": "Clover POS integration placeholder page with localStorage-backed configuration form and clear \"not active\" messaging.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for backend operations including user profile management and livestream CRUD operations.",
+  "frontend/src/hooks/useAudioMonitor.ts": "Custom hook managing Web Audio API for microphone monitoring with device enumeration, gain control, and stream lifecycle.",
+  "frontend/src/lib/livestream/parseEmbedInput.ts": "Utility function that parses YouTube/Facebook URLs or embed codes and generates responsive iframe HTML.",
+  "frontend/src/lib/clover/cloverConfig.ts": "Helper functions for loading and saving Clover configuration to localStorage with safe defaults.",
+  "frontend/src/index.css": "Global styles with OKLCH-based warm neutral and green color palette for light and dark modes, avoiding blue/purple dominance.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with the church-appropriate warm color system and standard utilities."
+}

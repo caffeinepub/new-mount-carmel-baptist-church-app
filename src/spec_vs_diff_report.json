@@ -1,0 +1,71 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-06T15:04:59.436Z",
+  "summary": "The diff implements the requested app shell with navigation and pages (YouTube/Facebook/Audio/Member/Clover), Internet Identity-based auth UI + gating, an audio input monitor hook/UI, Clover placeholder config stored in localStorage, a consistent warm/green theme, and backend methods for member profiles and livestream embed persistence. However, it also introduces extra backend/authorization APIs not explicitly requested, and the presence of the required generated image files cannot be verified from the provided diff summary.",
+  "missing_requirements": [
+    {
+      "id": "REQ-9",
+      "requirement": "Add the required generated static images under frontend/public/assets/generated and reference them from the UI.",
+      "reason": "The UI references the generated image paths, but the diff summary does not show the image files being added under frontend/public/assets/generated (some files are omitted due to limits), so existence cannot be confirmed from available evidence.",
+      "evidence": [
+        "frontend/src/components/AppLayout.tsx (references /assets/generated/nmcbc-banner.dim_1600x600.png and /assets/generated/nmcbc-logo.dim_512x512.png)",
+        "File diff summary notes: \"Omitted files due to limits: added=6\""
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Backend method getUserProfile(user : Principal) allowing reading another user’s profile (with admin/self restriction).",
+      "reason": "BuildRequest REQ-6 only asks for getMyProfile and upsertMyProfile; no requirement for querying arbitrary users’ profiles.",
+      "evidence": [
+        "backend/main.mo (public query func getUserProfile(user : Principal) : async ?MemberProfile)"
+      ]
+    },
+    {
+      "description": "Backend livestream storage API (saveLivestream/getLivestream) and LivestreamType enum, plus authorization gating for saving streams.",
+      "reason": "REQ-2/REQ-3 require saving YouTube/Facebook embed configuration and persistence, but they do not explicitly request adding new backend canister methods/types for livestream storage (persistence could have been implemented purely in the frontend).",
+      "evidence": [
+        "backend/main.mo (public shared func saveLivestream, public query func getLivestream, LivestreamType, Livestream types)",
+        "frontend/src/hooks/useQueries.ts (useGetLivestream/useSaveLivestream calling actor.getLivestream/saveLivestream)"
+      ]
+    },
+    {
+      "description": "Access-control initialization via a secret URL parameter (caffeineAdminToken) and calling a canister method _initializeAccessControlWithSecret.",
+      "reason": "BuildRequest does not mention an admin-token bootstrap mechanism or secret-based access control initialization; it only requires Internet Identity for authentication and member-gating.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts (getSecretParameter('caffeineAdminToken'); actor._initializeAccessControlWithSecret(adminToken))",
+        "backend/main.mo (imports authorization/MixinAuthorization and authorization/access-control; include MixinAuthorization(accessControlState))"
+      ]
+    }
+  ],
+  "confidence": 0.64,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AppLayout.tsx",
+    "frontend/src/components/AuthButton.tsx",
+    "frontend/src/components/PrimaryNav.tsx",
+    "frontend/src/components/RequireAuth.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAudioMonitor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/clover/cloverConfig.ts",
+    "frontend/src/lib/livestream/parseEmbedInput.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AudioInputPage.tsx",
+    "frontend/src/pages/CloverPlaceholderPage.tsx",
+    "frontend/src/pages/MemberAreaPage.tsx",
+    "frontend/src/pages/WatchLiveFacebookPage.tsx",
+    "frontend/src/pages/WatchLiveYouTubePage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-the-core-app-shell-and-navigation-for-a-church-livestream-app-for-new-mount-carmel-baptist-church-with-clear-routes-sections-for-1-watch-live-youtube-2-watch-live-facebook-3-audio-input-4-member-area-requires-login-and-5-clover-placeholder",
+      "featureTitle": "Create the core app shell and navigation for a church livestream app for New Mount Carmel Baptist Church with clear routes/sections for: (1) Watch Live (YouTube), (2) Watch Live (Facebook), (3) Audio Input, (4) Member Area (requires login), and (5) Clover (Placeholder).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/components/PrimaryNav.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-youtube-livestream-page-that-allows-an-admin-member-to-paste-and-save-youtube-embed-code-or-a-youtube-video-live-url-and-then-renders-the-embedded-livestream-responsively-desktop-mobile",
+      "featureTitle": "Implement a YouTube livestream page that allows an admin/member to paste and save YouTube embed code or a YouTube video/live URL, and then renders the embedded livestream responsively (desktop + mobile).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/livestream/parseEmbedInput.ts",
+        "frontend/src/pages/WatchLiveYouTubePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-facebook-livestream-page-that-allows-an-admin-member-to-paste-and-save-facebook-embed-code-or-a-facebook-live-url-and-then-renders-the-embedded-livestream-responsively-desktop-mobile",
+      "featureTitle": "Implement a Facebook livestream page that allows an admin/member to paste and save Facebook embed code or a Facebook live URL, and then renders the embedded livestream responsively (desktop + mobile).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/livestream/parseEmbedInput.ts",
+        "frontend/src/pages/WatchLiveFacebookPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-audio-input-feature-that-lets-a-logged-in-member-select-an-available-audio-input-device-microphone-line-in-as-exposed-by-the-browser-start-stop-monitoring-and-control-playback-volume-while-watching-the-embedded-livestreams-in-another-tab-section",
+      "featureTitle": "Add an “Audio Input” feature that lets a logged-in member select an available audio input device (microphone/line-in as exposed by the browser), start/stop monitoring, and control playback volume while watching the embedded livestreams in another tab/section.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useAudioMonitor.ts",
+        "frontend/src/pages/AudioInputPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-member-authentication-using-internet-identity-and-gate-the-member-area-so-only-authenticated-users-can-access-it-unauthenticated-users-should-see-a-clear-prompt-to-sign-in",
+      "featureTitle": "Implement member authentication using Internet Identity and gate the Member Area so only authenticated users can access it; unauthenticated users should see a clear prompt to sign in.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/AuthButton.tsx",
+        "frontend/src/components/RequireAuth.tsx",
+        "frontend/src/pages/MemberAreaPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-clover-integration-placeholder-page-that-clearly-communicates-clover-integration-is-not-yet-active-and-includes-a-safe-configuration-form-for-future-use-e-g-merchantid-apibaseurl-environment-stored-locally-in-the-browser-no-secrets",
+      "featureTitle": "Add a “Clover Integration (Placeholder)” page that clearly communicates Clover integration is not yet active, and includes a safe configuration form for future use (e.g., merchantId, apiBaseUrl, environment) stored locally in the browser (no secrets).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/clover/cloverConfig.ts",
+        "frontend/src/pages/CloverPlaceholderPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-a-coherent-distinctive-visual-theme-for-the-app-and-apply-it-consistently-across-pages-typography-spacing-colors-and-component-styling-avoid-a-blue-purple-dominant-palette",
+      "featureTitle": "Provide a coherent, distinctive visual theme for the app and apply it consistently across pages (typography, spacing, colors, and component styling). Avoid a blue/purple-dominant palette.",
+      "files": [
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-the-required-generated-static-images-to-the-project-and-use-them-in-the-ui-e-g-header-landing-areas-by-serving-from-frontend-public-assets-generated-no-backend-image-serving",
+      "featureTitle": "Add the required generated static images to the project and use them in the UI (e.g., header/landing areas) by serving from frontend/public/assets/generated (no backend image serving).",
+      "files": [
+        "frontend/src/components/AppLayout.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

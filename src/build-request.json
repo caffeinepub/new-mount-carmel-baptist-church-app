@@ -1,0 +1,201 @@
+{
+  "kind": "build_request",
+  "title": "New Mount Carmel Baptist Church livestream app: YouTube/Facebook embeds, Internet Identity members, audio input monitor, Clover placeholder",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create the core app shell and navigation for a church livestream app for New Mount Carmel Baptist Church with clear routes/sections for: (1) Watch Live (YouTube), (2) Watch Live (Facebook), (3) Audio Input, (4) Member Area (requires login), and (5) Clover (Placeholder).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "embed YouTube and Facebook livestreams, remove chat, and use Internet Identity login",
+          "And still needs clover integration"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A top-level navigation is present and working, letting users switch between YouTube, Facebook, Audio Input, Member Area, and Clover sections.",
+        "All pages render without runtime errors and have consistent layout (header/content/footer or equivalent)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a YouTube livestream page that allows an admin/member to paste and save YouTube embed code or a YouTube video/live URL, and then renders the embedded livestream responsively (desktop + mobile).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I want  to have code embedded from YouTube and Facebook"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The YouTube page provides an input to paste either embed HTML or a URL.",
+        "Saved YouTube embed configuration persists (survives refresh).",
+        "The embedded player is responsive and remains usable on mobile widths."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement a Facebook livestream page that allows an admin/member to paste and save Facebook embed code or a Facebook live URL, and then renders the embedded livestream responsively (desktop + mobile).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "I want  to have code embedded from YouTube and Facebook"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Facebook page provides an input to paste either embed HTML or a URL.",
+        "Saved Facebook embed configuration persists (survives refresh).",
+        "The embedded player is responsive and remains usable on mobile widths."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add an “Audio Input” feature that lets a logged-in member select an available audio input device (microphone/line-in as exposed by the browser), start/stop monitoring, and control playback volume while watching the embedded livestreams in another tab/section.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "separate audio input"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When the user clicks Start, the app requests microphone permission and begins monitoring the selected input.",
+        "The UI includes device selection (when available), start/stop controls, and a volume slider.",
+        "The feature works without blocking the YouTube/Facebook embed pages from loading (no hard dependency on the embed)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement member authentication using Internet Identity and gate the Member Area so only authenticated users can access it; unauthenticated users should see a clear prompt to sign in.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "use internet identity login"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A Sign in / Sign out control is visible in the UI.",
+        "Unauthenticated users cannot access the Member Area content and are prompted to sign in.",
+        "Authenticated state persists across refresh according to the existing Internet Identity hook behavior."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add a minimal backend member profile record keyed by Principal (e.g., createdAt, displayName optional) and expose canister methods for: getMyProfile (returns optional profile) and upsertMyProfile (creates/updates).",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "member login with Gmail. ... Remove chat feature use internet identity login"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Calling getMyProfile as a new principal returns null/none (or equivalent).",
+        "Calling upsertMyProfile stores the profile and subsequent getMyProfile returns it for the same principal.",
+        "Profiles are isolated per Principal (no cross-user leakage)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add a “Clover Integration (Placeholder)” page that clearly communicates Clover integration is not yet active, and includes a safe configuration form for future use (e.g., merchantId, apiBaseUrl, environment) stored locally in the browser (no secrets).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "And still needs clover integration",
+          "Clover integration placeholder/prep for later integration"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Clover page renders and does not attempt to process payments.",
+        "Configuration fields are saved and restored from localStorage.",
+        "The UI clearly states that no Clover transactions are performed yet."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Provide a coherent, distinctive visual theme for the app and apply it consistently across pages (typography, spacing, colors, and component styling). Avoid a blue/purple-dominant palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Let’s build"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All pages share a consistent layout and styling system.",
+        "Theme uses a non-blue/purple-dominant palette and looks appropriate for a church livestream app.",
+        "Key UI elements (nav, cards, forms, buttons) have consistent styles across the app."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add the required generated static images to the project and use them in the UI (e.g., header/landing areas) by serving from frontend/public/assets/generated (no backend image serving).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Let’s build"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced by the UI.",
+        "Images load correctly in the browser without any backend endpoints."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Internet Identity for authentication; do not implement Gmail/Google sign-in.",
+    "Chat is out of scope and must not be implemented.",
+    "Do not implement RTSP streaming or attempt to host video streams on the Internet Computer.",
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo); add migration.mo only if state upgrades require it.",
+    "Do not edit frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui."
+  ],
+  "nonGoals": [
+    "Real-time chat or WebSocket-based messaging.",
+    "Full Clover payment processing, OAuth, or handling Clover secrets on the client.",
+    "Video analytics/engagement tracking (not requested in the latest scope).",
+    "Hosting or transcoding livestream video on-chain."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Church logo mark with simple cross + rising sun motif, warm neutral palette (nmcbc-logo.dim_512x512.png)",
+      "Wide subtle background banner with abstract stained-glass shapes, warm neutrals and greens (nmcbc-banner.dim_1600x600.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "Use English for user-facing text"
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

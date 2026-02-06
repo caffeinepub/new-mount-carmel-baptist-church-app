@@ -1,0 +1,228 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "New Mount Carmel Baptist Church Livestream App (YouTube/Facebook embeds, Member Area with Internet Identity, Audio Input monitor, Clover placeholder)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Create the core app shell with consistent layout and working navigation/routes for YouTube, Facebook, Audio Input, Member Area (gated), and Clover (placeholder).",
+      "acceptanceCriteria": [
+        "A top-level navigation is present and working, letting users switch between YouTube, Facebook, Audio Input, Member Area, and Clover sections.",
+        "All pages render without runtime errors and have consistent layout (header/content/footer or equivalent)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the root app component that defines the top-level layout and route wiring for Watch Live (YouTube), Watch Live (Facebook), Audio Input, Member Area, and Clover. Use shadcn-ui building blocks (e.g., Button/Card) for consistent UI; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "create",
+          "description": "Add a reusable layout component (header with logo + banner area, primary navigation, footer, and a content container) used across all required sections. Use shadcn-ui primitives for nav/buttons where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/PrimaryNav.tsx",
+          "operation": "create",
+          "description": "Implement top navigation links for YouTube, Facebook, Audio Input, Member Area, and Clover, styled consistently with the theme and responsive for mobile. Use shadcn-ui components (e.g., Button) as appropriate; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement a responsive YouTube livestream page with authenticated edit/save of an embed configuration (URL or embed HTML) and persistent loading on refresh.",
+      "acceptanceCriteria": [
+        "The YouTube page provides an input to paste either embed HTML or a URL.",
+        "Saved YouTube embed configuration persists (survives refresh).",
+        "The embedded player is responsive and remains usable on mobile widths."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/WatchLiveYouTubePage.tsx",
+          "operation": "create",
+          "description": "Create the YouTube Watch Live page: render the current saved embed in a responsive container; if authenticated, show an editor to paste a YouTube URL or embed HTML and save it via the existing backend actor capability (getLivestream/saveLivestream). Ensure no chat UI is rendered. Use shadcn-ui form components for inputs/buttons/cards; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/livestream/parseEmbedInput.ts",
+          "operation": "create",
+          "description": "Add a small utility to normalize user input (URL or embed HTML) into a safe, minimal iframe configuration for rendering (avoid rendering arbitrary HTML; ignore any chat-related embeds)."
+        },
+        {
+          "path": "frontend/src/lib/livestream/livestreamStorage.ts",
+          "operation": "create",
+          "description": "Add frontend helper functions/hooks that load/save the YouTube livestream configuration using the actor methods from the existing backend interface, with graceful unauthenticated behavior (e.g., view-only when not logged in)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the YouTube Watch Live page route into the app router and connect it to the top navigation so it is reachable."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement a responsive Facebook livestream page with authenticated edit/save of an embed configuration (URL or embed HTML) and persistent loading on refresh.",
+      "acceptanceCriteria": [
+        "The Facebook page provides an input to paste either embed HTML or a URL.",
+        "Saved Facebook embed configuration persists (survives refresh).",
+        "The embedded player is responsive and remains usable on mobile widths."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/WatchLiveFacebookPage.tsx",
+          "operation": "create",
+          "description": "Create the Facebook Watch Live page: render the current saved embed in a responsive container; if authenticated, show an editor to paste a Facebook Live URL or embed HTML and save it via the existing backend actor capability (getLivestream/saveLivestream). Ensure no chat UI is rendered. Use shadcn-ui form components for inputs/buttons/cards; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/livestream/parseEmbedInput.ts",
+          "operation": "modify",
+          "description": "Extend the input normalization to support Facebook URLs/embed patterns and produce a safe iframe render configuration (avoid rendering arbitrary HTML; ignore any chat-related embeds)."
+        },
+        {
+          "path": "frontend/src/lib/livestream/livestreamStorage.ts",
+          "operation": "modify",
+          "description": "Extend the storage helpers/hooks to load/save the Facebook livestream configuration using the actor methods from the existing backend interface."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Facebook Watch Live page route into the app router and connect it to the top navigation so it is reachable."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add a logged-in member Audio Input monitor with device selection, start/stop, and volume control that works independently of the livestream pages.",
+      "acceptanceCriteria": [
+        "When the user clicks Start, the app requests microphone permission and begins monitoring the selected input.",
+        "The UI includes device selection (when available), start/stop controls, and a volume slider.",
+        "The feature works without blocking the YouTube/Facebook embed pages from loading (no hard dependency on the embed)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AudioInputPage.tsx",
+          "operation": "create",
+          "description": "Create the Audio Input page with: device dropdown (when devices are available), Start/Stop buttons, and a volume slider. Gate the page controls behind Internet Identity authentication (show a sign-in prompt if unauthenticated). Use shadcn-ui form controls (select/slider/buttons/cards) if available; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAudioMonitor.ts",
+          "operation": "create",
+          "description": "Implement a React hook that encapsulates Web Audio monitoring: request getUserMedia for the selected deviceId, connect MediaStreamSource -> GainNode -> destination, expose start/stop, current state, available devices, and volume control."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Audio Input page route into the app router and connect it to the top navigation so it is reachable."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement Internet Identity sign-in/sign-out UI and gate the Member Area so only authenticated users can access it, with clear prompts for guests.",
+      "acceptanceCriteria": [
+        "A Sign in / Sign out control is visible in the UI.",
+        "Unauthenticated users cannot access the Member Area content and are prompted to sign in.",
+        "Authenticated state persists across refresh according to the existing Internet Identity hook behavior."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AuthButton.tsx",
+          "operation": "create",
+          "description": "Add a Sign in / Sign out button using the existing useInternetIdentity hook, clearing cached app data on logout (per the authorization component guidance). Use shadcn-ui Button for consistent styling; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/RequireAuth.tsx",
+          "operation": "create",
+          "description": "Create a small wrapper component that renders a clear sign-in prompt (and optional AuthButton) when unauthenticated, otherwise renders protected children (used by Member Area and other logged-in-only controls)."
+        },
+        {
+          "path": "frontend/src/pages/MemberAreaPage.tsx",
+          "operation": "create",
+          "description": "Create a Member Area page that is gated by authentication. Integrate with the existing backend actor capability for member profile (getMyProfile/upsertMyProfile) to show a friendly display name when available and prompt for first-time setup per the authorization component guidance; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Place the AuthButton in the global header area and wire the Member Area route with RequireAuth gating so guests cannot view member-only content."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add a Clover Integration (Placeholder) page with a safe local-only configuration form and clear messaging that payments are not active.",
+      "acceptanceCriteria": [
+        "The Clover page renders and does not attempt to process payments.",
+        "Configuration fields are saved and restored from localStorage.",
+        "The UI clearly states that no Clover transactions are performed yet."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CloverPlaceholderPage.tsx",
+          "operation": "create",
+          "description": "Create the Clover Integration (Placeholder) page with prominent \"not active\" messaging and a localStorage-backed configuration form (merchantId, apiBaseUrl, environment) that stores no secrets. Use shadcn-ui form components for consistent styling; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/clover/cloverConfig.ts",
+          "operation": "create",
+          "description": "Add a small helper for reading/writing the Clover placeholder configuration to localStorage with basic validation and safe defaults."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Clover Placeholder page route into the app router and connect it to the top navigation so it is reachable."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Apply a coherent, church-appropriate visual theme across the app using a non-blue/purple-dominant palette with consistent typography, spacing, and component styling.",
+      "acceptanceCriteria": [
+        "All pages share a consistent layout and styling system.",
+        "Theme uses a non-blue/purple-dominant palette and looks appropriate for a church livestream app.",
+        "Key UI elements (nav, cards, forms, buttons) have consistent styles across the app."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create/define global styles and CSS variables used by Tailwind/shadcn-ui theming (warm neutrals + greens; avoid blue/purple dominance), base typography, and shared element spacing."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust theme extensions only as needed to support the chosen warm/neutral/green palette and consistent component styling (while keeping existing CSS-variable-based color system intact)."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Apply the theme consistently in the shared layout (header/nav/footer, page container widths, background treatment, and consistent card/form spacing). Use shadcn-ui components where appropriate; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add the required generated static images and reference them from the UI as static assets served from frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated and are referenced by the UI.",
+        "Images load correctly in the browser without any backend endpoints."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/nmcbc-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated static image asset (Church logo mark with simple cross + rising sun motif, warm neutral palette) at frontend/public/assets/generated/nmcbc-logo.dim_512x512.png."
+        },
+        {
+          "path": "frontend/public/assets/generated/nmcbc-banner.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add the generated static image asset (Wide subtle background banner with abstract stained-glass shapes, warm neutrals and greens) at frontend/public/assets/generated/nmcbc-banner.dim_1600x600.png."
+        },
+        {
+          "path": "frontend/src/components/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Reference and render the static images from frontend/public/assets/generated/nmcbc-logo.dim_512x512.png and frontend/public/assets/generated/nmcbc-banner.dim_1600x600.png in the header/branding area (as static public assets; no backend image serving)."
+        }
+      ]
+    }
+  ]
+}
